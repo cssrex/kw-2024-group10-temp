@@ -16,9 +16,16 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/main', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+// client-side JavaScript (웹 페이지에서 실행)
+window.addEventListener('load', function() {
+    const { exec } = require('child_process');
+
+    exec('node server.js', (err, stdout, stderr) => {
+        if (err) {
+            console.error(`exec error: ${err}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.error(`stderr: ${stderr}`);
+    });
 });
-
-
-
